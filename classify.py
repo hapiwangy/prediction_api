@@ -74,3 +74,4 @@ if __name__ == "__main__":
     model = model_predict()
     model.consequence("government is very important!!")
     print(model.answer)
+    print('test')
