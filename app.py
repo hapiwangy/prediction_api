@@ -1,7 +1,8 @@
-from flask import Flask, request
+from flask import Flask, jsonify, request
 import classify
 import torch 
 import transformers
+from flask_cors import CORS
 class BERTClass(torch.nn.Module):
     def __init__(self):
         super(BERTClass, self).__init__()
@@ -16,13 +17,14 @@ class BERTClass(torch.nn.Module):
         return output
 model = classify.model_predict()
 app = Flask(__name__)
+cors = CORS(app, resources={r"/": {"origins": "*"}})
 
 @app.route('/', methods=['POST', 'GET'])
 def predict():
     if request.method == 'POST':
         data = request.get_json()
         model.consequence(data["sent"])
-        return model.answer
+        return jsonify(result=model.answer)
     return "hello world"
 if __name__ == '__main__':
     app.run(port=5051, debug = True)
