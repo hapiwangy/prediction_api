@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 import classify
 import torch 
 import transformers
+import seven
 from flask_cors import CORS
 class BERTClass(torch.nn.Module):
     def __init__(self):
@@ -26,5 +27,14 @@ def predict():
         model.consequence(data["sent"])
         return jsonify(result=model.answer)
     return "hello world"
+
+@app.route('/banana', methods=['POST', 'GET'])
+def predict2():
+    if request.method == 'POST':
+        data = request.get_json()
+        
+        return jsonify(result=seven.classfy(data["sent"]))
+    return "hello world"
+
 if __name__ == '__main__':
     app.run(port=5051, debug = True)

@@ -24,3 +24,4 @@ python app.py
  pip freeze
  pip freeze > requirements.txt
  ```
+ test
