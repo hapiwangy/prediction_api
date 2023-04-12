@@ -9,7 +9,7 @@ cons=""
 def classfy(sentence:str):
     device = torch.device("cpu")
     tokenizer = BertTokenizer.from_pretrained('bert-base-cased', do_lower_case=True)
-    model = torch.load(r"C:\Users\user\Downloads\kapaatestmoudle.pth")
+    model = torch.load(r"kapaatestmoudle.pth", map_location=torch.device('cpu'))
     model.eval()
     model.to(device)
     encoded_dict = tokenizer.encode_plus(

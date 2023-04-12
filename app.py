@@ -32,8 +32,8 @@ def predict():
 def predict2():
     if request.method == 'POST':
         data = request.get_json()
-        seven.classfy(data["sent"])
-        return jsonify(result=seven.cons)
+        
+        return jsonify(result=seven.classfy(data["sent"]))
     return "hello world"
 
 if __name__ == '__main__':
