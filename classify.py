@@ -3,7 +3,7 @@ import transformers
 from transformers import BertTokenizer
 import numpy as np
 import sys
-labels = ["not included","Climate","Natural capital","Pollution&Waste","Env. Opportunities","Human Capital","Product Liability","Social Opportunities","Corporator Governance","Corporator Behavior"]
+labels = ["Climate","Natural capital","Pollution&Waste","Env. Opportunities","Human Capital","Product Liability","Social Opportunities","Corporator Governance","Corporator Behavior"]
 device = 'cpu' 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased') 
 MAX_LEN = 256
@@ -34,7 +34,7 @@ class model_predict:
             return output
     # 初始化模型相關數據
     def __init__(self):
-        self.model = torch.load(r"model_2.pt", map_location='cpu')
+        self.model = torch.load(r"C:\Users\user\Downloads\model_third.pt", map_location='cpu')
         self.tokenizer = tokenizer
         self.device = device
         self.labels = labels
@@ -59,7 +59,7 @@ class model_predict:
         with torch.no_grad():
             outputs = self.model(self.ids, self.mask, self.token_type_ids)
         outputs = np.array(torch.sigmoid(outputs).cpu().detach().numpy().tolist())
-        outputs = outputs >= 0.4
+        outputs = outputs >= 0.048
         outputs = outputs[0]
         ans = []
         for index , x in enumerate(outputs):

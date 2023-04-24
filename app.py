@@ -3,6 +3,7 @@ import classify
 import torch 
 import transformers
 import seven
+import ESG
 from flask_cors import CORS
 class BERTClass(torch.nn.Module):
     def __init__(self):
@@ -18,7 +19,7 @@ class BERTClass(torch.nn.Module):
         return output
 model = classify.model_predict()
 app = Flask(__name__)
-cors = CORS(app, resources={r"/": {"origins": "*"}})
+cors = CORS(app, resources={r"/": {"origins": "*"},r"/banana": {"origins": "*"},r"/banana2": {"origins": "*"}})
 
 @app.route('/', methods=['POST', 'GET'])
 def predict():
@@ -34,6 +35,14 @@ def predict2():
         data = request.get_json()
         
         return jsonify(result=seven.classfy(data["sent"]))
+    return "hello world"
+
+@app.route('/banana2', methods=['POST', 'GET'])
+def predict3():
+    if request.method == 'POST':
+        data = request.get_json()
+        
+        return jsonify(result=ESG.classfy(data["sent"]))
     return "hello world"
 
 if __name__ == '__main__':
