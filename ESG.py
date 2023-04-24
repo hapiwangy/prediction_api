@@ -4,12 +4,13 @@ from transformers import BertTokenizer
 import numpy as np
 import sys
 
-labels = ["E","S","G"]
+
+labels = ["not included","E","S","E+S","G","E+g","S+G","E+S+G"]
 cons=""
 def classfy(sentence:str):
     device = torch.device("cpu")
     tokenizer = BertTokenizer.from_pretrained('bert-base-cased', do_lower_case=True)
-    model = torch.load(r"C:\Users\user\Downloads\ESGsingle.pth", map_location=torch.device('cpu'))
+    model = torch.load(r"C:\Users\user\Downloads\kapaatestmoudle.pth", map_location=torch.device('cpu'))
     model.eval()
     model.to(device)
     encoded_dict = tokenizer.encode_plus(
